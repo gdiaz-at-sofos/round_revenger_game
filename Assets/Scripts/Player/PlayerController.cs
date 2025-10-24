@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private BoxCollider2D feet;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private GunController gun;
+    [SerializeField] private SpriteRenderer sprite;
 
     private Vector2 _moveHorizontal;
     private Vector2 _moveVertical;
@@ -26,6 +28,20 @@ public class PlayerController : MonoBehaviour
 
     private float _coyoteTimeCounter = 0f;
     private float _jumpTimeCounter = 0f;
+
+    private Coroutine _blinkCoroutine;
+
+    void OnEnable()
+    {
+        EventBus<None>.Subscribe(GameEvent.PlayerInvincibilityStarted, OnPlayerInvincibilityStarted);
+        EventBus<None>.Subscribe(GameEvent.PlayerInvincibilityEnded, OnPlayerInvincibilityEnded);
+    }
+
+    void OnDisable()
+    {
+        EventBus<None>.Unsubscribe(GameEvent.PlayerInvincibilityStarted, OnPlayerInvincibilityStarted);
+        EventBus<None>.Unsubscribe(GameEvent.PlayerInvincibilityEnded, OnPlayerInvincibilityEnded);
+    }
 
     // Update is called once per frame
     void Update()
@@ -111,5 +127,30 @@ public class PlayerController : MonoBehaviour
     void OnShoot(InputValue value)
     {
         gun.Shoot();
+    }
+
+    /**
+     * Event Handlers
+     */
+
+    private void OnPlayerInvincibilityStarted()
+    {
+        _blinkCoroutine = StartCoroutine(BlinkSprite(sprite));
+    }
+
+    private void OnPlayerInvincibilityEnded()
+    {
+        StopCoroutine(_blinkCoroutine);
+        sprite.enabled = true;
+    }
+
+    private IEnumerator BlinkSprite(SpriteRenderer spriteR)
+    {
+        // NOTE: Again, maybe use Update instead of a coroutine
+        while (true)
+        {
+            spriteR.enabled = !spriteR.enabled;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
