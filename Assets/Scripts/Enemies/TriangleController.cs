@@ -75,6 +75,8 @@ public class TriangleController : MonoBehaviour
             // Tween back a bit to represent bouncing off the wall
             Vector3 bounceBackPosition = transform.position - direction.normalized;
             transform.DOMove(bounceBackPosition, bounceBackDuration).SetEase(Ease.OutQuad);
+
+            yield return new WaitForSeconds(bounceBackDuration);
         }
 
         // Kill the tween if it's still running
