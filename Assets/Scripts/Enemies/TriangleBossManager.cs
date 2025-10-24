@@ -84,7 +84,7 @@ public class TriangleBossManager : MonoBehaviour
         yield return StartCoroutine(triangle.RotateTowards(Vector3.up, Ease.InOutSine));
 
         // Wait
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
     }
 
     private IEnumerator GoToCenterPositionSequence()
