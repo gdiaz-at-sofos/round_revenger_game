@@ -30,6 +30,12 @@ public class TriangleBossManager : MonoBehaviour
         EventBus<None>.Subscribe(GameEvent.BossStarted, OnBossStarted);
     }
 
+    private void OnDisable()
+    {
+        EventBus<None>.Unsubscribe(GameEvent.LevelStarted, OnLevelStarted);
+        EventBus<None>.Unsubscribe(GameEvent.BossStarted, OnBossStarted);
+    }
+
     private void OnLevelStarted()
     {
         StartCoroutine(InitialCombatSequence());
