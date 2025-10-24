@@ -10,6 +10,7 @@ public class TriangleController : MonoBehaviour
     [SerializeField] private float chargeTime = 10f;
     [SerializeField] private float chargeDistance = 100f;
     [SerializeField] private float bounceBackDuration = 0.5f;
+    [SerializeField] private int damage = 1;
 
     [Header("References")]
     [SerializeField] private LayerMask collisionLayer;
@@ -88,9 +89,17 @@ public class TriangleController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        // Check if collided with a solid layer
         if (((1 << collider.gameObject.layer) & collisionLayer) != 0)
         {
             _hasWallBeenHit = true;
+        }
+
+        // Check if collided with the player
+        IDamageable damageable = collider.GetComponentInParent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.Damage(damage);
         }
     }
 
