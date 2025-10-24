@@ -4,10 +4,8 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Parameters")]
-    [SerializeField] private PlayerParameters playerParams;
-
     [Header("References")]
+    [SerializeField] private PlayerParameters playerParams;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private BoxCollider2D feet;
     [SerializeField] private LayerMask groundLayer;
@@ -102,7 +100,7 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         Vector2 inputVector = value.Get<Vector2>();
-        _moveHorizontal = playerParams.speedForce * Time.fixedDeltaTime * new Vector2(inputVector.x, 0f);
+        _moveHorizontal = playerParams.movementSpeedForce * Time.fixedDeltaTime * new Vector2(inputVector.x, 0f);
     }
 
     void OnJump(InputValue value)

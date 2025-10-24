@@ -6,13 +6,13 @@ public class TriangleBossManager : MonoBehaviour
 {
     public static TriangleBossManager Instance { get; private set; }
 
+    [Header("References")]
+    [SerializeField] private TriangleBossParameters bossParams;
     [SerializeField] private TriangleController triangle;
     [SerializeField] private Transform startingPosition;
     [SerializeField] private Transform centerPosition;
 
     private bool _isBossDefeated = false;
-    private int _chargeCount = 3;
-    private int _bumpCount = 3;
 
     private void Awake()
     {
@@ -50,7 +50,7 @@ public class TriangleBossManager : MonoBehaviour
         yield return StartCoroutine(triangle.RotateTowards(Vector3.down, Ease.InSine));
 
         // Charge
-        triangle.ChargeTime = 1f;
+        triangle.ChargeTime = bossParams.initialChargeTime;
         yield return StartCoroutine(triangle.Charge(Vector3.down, Ease.InSine));
 
         // Move to center
@@ -90,7 +90,7 @@ public class TriangleBossManager : MonoBehaviour
         yield return StartCoroutine(triangle.RotateTowards(Vector3.up, Ease.InOutSine));
 
         // Wait
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(bossParams.idleTime);
     }
 
     private IEnumerator GoToCenterPositionSequence()
@@ -101,9 +101,9 @@ public class TriangleBossManager : MonoBehaviour
 
     private IEnumerator ChargeSequence()
     {
-        triangle.ChargeTime = 4f;
+        triangle.ChargeTime = bossParams.chargeTime;
 
-        for (int i = 0; i < _chargeCount; i++)
+        for (int i = 0; i < bossParams.numberOfCharges; i++)
         {
             // Rotate towards player
             Vector3 direction = GetHorizontalDirection(PlayerManager.Instance.GetPlayerPosition() - triangle.transform.position);
@@ -112,7 +112,7 @@ public class TriangleBossManager : MonoBehaviour
             // Charge
             yield return StartCoroutine(triangle.Charge(direction, Ease.InOutSine));
 
-            // Idle for a bit
+            // Wait for a bit
             yield return new WaitForSeconds(1f);
 
             // Move between lanes

@@ -399,6 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityHP: 10
   maxHP: 10
+  playerParams: {fileID: 11400000, guid: 64092d443b9a9eb4faced56eb037dc25, type: 2}
 --- !u!1 &270153088
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,12 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64b457063899544d84b97b0318b9191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToRotate: 1
-  timeToMovePerUnit: 0.1
-  chargeTime: 10
-  chargeDistance: 100
-  bounceBackDuration: 0.5
-  damage: 1
+  bossParams: {fileID: 11400000, guid: c6d38795b31982e43a88bc7f2f2716a6, type: 2}
   collisionLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -566,6 +562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityHP: 100
   maxHP: 100
+  enemyParams: {fileID: 11400000, guid: d77ee279c9c7a7a4b861741ffef6ab2b, type: 2}
 --- !u!60 &302435546
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -676,9 +673,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbef646a27cbb25489f2b376f7eae5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootingParams: {fileID: 11400000, guid: e3eb0043dedcf6c49b6ac9bbce951706, type: 2}
   bulletPrefab: {fileID: 1636105147770746345, guid: 82d695fc05900064fbc1941fd1626caf, type: 3}
-  prewarmCount: 20
-  maxPoolSize: 100
 --- !u!4 &665952733
 Transform:
   m_ObjectHideFlags: 0
@@ -896,9 +892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzle: {fileID: 2104794334}
   mainCamera: {fileID: 1775673864}
-  damage: 1
-  speedForce: 20
-  shootCooldown: 0.55
+  playerParams: {fileID: 11400000, guid: 64092d443b9a9eb4faced56eb037dc25, type: 2}
 --- !u!1 &853572040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,6 +1402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c71d21b95be0ca448c5ae3030138d34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossParams: {fileID: 11400000, guid: c6d38795b31982e43a88bc7f2f2716a6, type: 2}
   triangle: {fileID: 302435542}
   startingPosition: {fileID: 1943531593}
   centerPosition: {fileID: 873584095}

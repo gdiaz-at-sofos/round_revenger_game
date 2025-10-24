@@ -1,9 +1,16 @@
+using UnityEngine;
+
 public class EnemyHPController : HealthController
 {
   public event System.Action<int, int> OnHPChanged;
 
+  [Header("References")]
+  [SerializeField] private EnemyParameters enemyParams;
+
   void Start()
   {
+    entityHP = enemyParams.entityHP;
+    maxHP = enemyParams.maxHP;
     OnHPChanged?.Invoke(entityHP, maxHP);
   }
 

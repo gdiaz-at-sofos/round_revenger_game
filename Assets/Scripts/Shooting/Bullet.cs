@@ -3,9 +3,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Bullet : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private ShootingParameters shootingParams;
+
     private Rigidbody2D _rb;
-    private int _damageHP = 0;
-    private float _lifetime = 5f;
+    private int _damageHP;
 
     void Awake()
     {
@@ -15,8 +17,8 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         // Decrease lifetime
-        _lifetime -= Time.deltaTime;
-        if (_lifetime <= 0f)
+        shootingParams.lifetime -= Time.deltaTime;
+        if (shootingParams.lifetime <= 0f)
         {
             _rb.velocity = Vector2.zero;
             BulletManager.Instance.Return(this);

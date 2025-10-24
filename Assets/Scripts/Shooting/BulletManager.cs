@@ -6,9 +6,8 @@ public class BulletManager : MonoBehaviour
     public static BulletManager Instance { get; private set; }
 
     [Header("References")]
+    [SerializeField] private ShootingParameters shootingParams;
     [SerializeField] private Bullet bulletPrefab;
-    [SerializeField] private int prewarmCount = 50;
-    [SerializeField] private int maxPoolSize = 200;
 
     private readonly Queue<Bullet> pool = new Queue<Bullet>();
 
@@ -27,7 +26,7 @@ public class BulletManager : MonoBehaviour
 
     private void Prewarm()
     {
-        for (int i = 0; i < prewarmCount; i++)
+        for (int i = 0; i < shootingParams.prewarmCount; i++)
         {
             Bullet bullet = Create();
             bullet.gameObject.SetActive(false);
@@ -50,7 +49,7 @@ public class BulletManager : MonoBehaviour
             bullet = pool.Dequeue();
             bullet.gameObject.SetActive(true);
         }
-        else if (transform.childCount < maxPoolSize)
+        else if (transform.childCount < shootingParams.maxPoolSize)
         {
             bullet = Create();
             bullet.gameObject.SetActive(true);

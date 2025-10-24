@@ -3,11 +3,15 @@ using System.Collections;
 
 public class PlayerHPController : HealthController
 {
-    private float _invincibilityDuration = 1.0f;
+    [Header("References")]
+    [SerializeField] private PlayerParameters playerParams;
+
     private float _invincibilityTimer = 0.0f;
 
     void Start()
     {
+        entityHP = playerParams.entityHP;
+        maxHP = playerParams.maxHP;
         EventBus<PlayerHPChangedEvent>.Publish(GameEvent.PlayerHPChanged, new PlayerHPChangedEvent(entityHP, maxHP));
     }
 
@@ -42,7 +46,7 @@ public class PlayerHPController : HealthController
     private IEnumerator TimeInvincibility()
     {
         EventBus<None>.Publish(GameEvent.PlayerInvincibilityStarted);
-        _invincibilityTimer = _invincibilityDuration;
+        _invincibilityTimer = playerParams.invincibilityDuration;
         while (_invincibilityTimer > 0)
         {
             _invincibilityTimer -= Time.deltaTime;

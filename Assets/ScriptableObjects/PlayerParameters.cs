@@ -10,7 +10,7 @@ public class PlayerParameters : ScriptableObject
     public float gravityScale = 1.6f;
 
     [Header("Movement")]
-    public float speedForce = 80f;
+    public float movementSpeedForce = 80f;
     public float maxSpeed = 35f;
     public float dampingFactor = 0.2f;
 
@@ -24,4 +24,14 @@ public class PlayerParameters : ScriptableObject
 
     [Header("Animations")]
     public float blinkOutDuration = 0.1f;
+
+    [Header("Damage")]
+    public int gunDamage = 1;
+    public float gunSpeedForce = 20f;
+    public float gunShootCooldown = 0.55f;
+
+    [Header("Health")]
+    public int entityHP = 5;
+    public int maxHP = 5;
+    public float invincibilityDuration = 1.0f;
 }

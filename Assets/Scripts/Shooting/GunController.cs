@@ -5,11 +5,7 @@ public class GunController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform muzzle;
     [SerializeField] private Camera mainCamera;
-
-    [Header("Parameters")]
-    [SerializeField] private int damage = 1;
-    [SerializeField] private float speedForce = 20f;
-    [SerializeField] private float shootCooldown = 0.55f;
+    [SerializeField] private PlayerParameters playerParams;
 
     private float _lastShootTime = -0.55f;
     private Vector3 _mousePosition;
@@ -28,14 +24,14 @@ public class GunController : MonoBehaviour
     public void Shoot()
     {
         // Don't shoot if the gun is still in cooldown
-        if (Time.time - _lastShootTime < shootCooldown)
+        if (Time.time - _lastShootTime < playerParams.gunShootCooldown)
         {
             return;
         }
 
         Vector2 direction = (_mousePosition - muzzle.position).normalized;
         Bullet bullet = BulletManager.Instance.Get();
-        bullet.Fire(muzzle.position, direction, speedForce, damage);
+        bullet.Fire(muzzle.position, direction, playerParams.gunSpeedForce, playerParams.gunDamage);
 
         _lastShootTime = Time.time;
     }
