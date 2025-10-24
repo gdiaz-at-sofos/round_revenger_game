@@ -377,13 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 943f8c6f5aeeb8a44a8642f81e7b9d34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedForce: 80
-  maxSpeed: 35
-  jumpForce: 800
-  jumpTime: 0.5
-  jumpRate: 0.2
-  dampingFactor: 0.2
-  coyoteTime: 0.2
+  playerParams: {fileID: 11400000, guid: 64092d443b9a9eb4faced56eb037dc25, type: 2}
   rb: {fileID: 226948055}
   feet: {fileID: 1811097357}
   groundLayer:

@@ -5,13 +5,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     [Header("Parameters")]
-    [SerializeField] private float speedForce = 80f;
-    [SerializeField] private float maxSpeed = 35f;
-    [SerializeField] private float jumpForce = 500f;
-    [SerializeField] private float jumpTime = 0.5f;
-    [SerializeField] private float jumpRate = 0.2f;
-    [SerializeField] private float dampingFactor = 0.2f;
-    [SerializeField] private float coyoteTime = 0.2f;
+    [SerializeField] private PlayerParameters playerParams;
 
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
@@ -50,16 +44,16 @@ public class PlayerController : MonoBehaviour
         _isOnGround = Physics2D.BoxCast(
             new Vector2(feet.bounds.center.x, feet.bounds.center.y - feet.bounds.extents.y),
             feet.size,
-            0f,
+            playerParams.groundCheckAngle,
             Vector2.down,
-            0.1f,
+            playerParams.groundCheckDistance,
             groundLayer
         );
 
         // Handle coyote time
         if (_isOnGround)
         {
-            _coyoteTimeCounter = coyoteTime;
+            _coyoteTimeCounter = playerParams.coyoteTime;
         }
         else
         {
@@ -73,7 +67,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            _jumpTimeCounter = jumpTime;
+            _jumpTimeCounter = playerParams.jumpTime;
         }
     }
 
@@ -81,7 +75,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // Movement only on x-axis
-        if (_moveHorizontal != Vector2.zero && Mathf.Abs(rb.velocity.x) <= maxSpeed)
+        if (_moveHorizontal != Vector2.zero && Mathf.Abs(rb.velocity.x) <= playerParams.maxSpeed)
         {
             rb.AddForce(_moveHorizontal, ForceMode2D.Impulse);
         }
@@ -89,14 +83,14 @@ public class PlayerController : MonoBehaviour
         // Add opposing force to slow down the player
         if (Mathf.Abs(rb.velocity.x) > 0)
         {
-            rb.AddForce(new Vector2(-rb.velocity.x * dampingFactor, 0f), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(-rb.velocity.x * playerParams.dampingFactor, 0f), ForceMode2D.Impulse);
         }
 
         // Jump only on y-axis
         if (_moveVertical.y > 0f && _isJumpPressed && _jumpTimeCounter > 0f)
         {
-            rb.AddForce(_moveVertical * jumpRate, ForceMode2D.Impulse);
-            _moveVertical -= _moveVertical * jumpRate;
+            rb.AddForce(_moveVertical * playerParams.jumpRate, ForceMode2D.Impulse);
+            _moveVertical -= _moveVertical * playerParams.jumpRate;
             _coyoteTimeCounter = 0f;
         }
     }
@@ -108,14 +102,14 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         Vector2 inputVector = value.Get<Vector2>();
-        _moveHorizontal = speedForce * Time.fixedDeltaTime * new Vector2(inputVector.x, 0f);
+        _moveHorizontal = playerParams.speedForce * Time.fixedDeltaTime * new Vector2(inputVector.x, 0f);
     }
 
     void OnJump(InputValue value)
     {
         if (value.isPressed && _coyoteTimeCounter > 0f)
         {
-            _moveVertical = jumpForce * Time.fixedDeltaTime * new Vector2(0f, 1f);
+            _moveVertical = playerParams.jumpForce * Time.fixedDeltaTime * Vector2.up;
             _isJumpPressed = true;
         }
         else
@@ -150,7 +144,7 @@ public class PlayerController : MonoBehaviour
         while (true)
         {
             spriteR.enabled = !spriteR.enabled;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(playerParams.blinkOutDuration);
         }
     }
 }
