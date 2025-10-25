@@ -21,4 +21,14 @@ public class PlayerManager : MonoBehaviour
     {
         return playerController.transform.position;
     }
+
+    public int GetPlayerCurrentHP()
+    {
+        return playerHPController.GetCurrentHP();
+    }
+
+    public int GetPlayerMaxHP()
+    {
+        return playerHPController.GetMaxHP();
+    }
 }

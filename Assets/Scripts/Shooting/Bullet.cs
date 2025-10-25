@@ -8,17 +8,23 @@ public class Bullet : MonoBehaviour
 
     private Rigidbody2D _rb;
     private int _damageHP;
+    private float _lifetime;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
     }
 
+    void Start()
+    {
+        _lifetime = shootingParams.lifetime;
+    }
+
     void Update()
     {
         // Decrease lifetime
-        shootingParams.lifetime -= Time.deltaTime;
-        if (shootingParams.lifetime <= 0f)
+        _lifetime -= Time.deltaTime;
+        if (_lifetime <= 0f)
         {
             _rb.velocity = Vector2.zero;
             BulletManager.Instance.Return(this);

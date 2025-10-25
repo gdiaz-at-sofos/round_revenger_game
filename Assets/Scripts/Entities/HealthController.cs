@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour, IHealable, IDamageable
 {
-    [SerializeField] protected int entityHP = 100;
-    [SerializeField] protected int maxHP = 100;
+    protected int entityHP;
+    protected int maxHP;
 
     public virtual void Heal(int hitPoints)
     {
@@ -18,6 +18,11 @@ public class HealthController : MonoBehaviour, IHealable, IDamageable
         {
             Die();
         }
+    }
+
+    public virtual int GetCurrentHP()
+    {
+        return entityHP;
     }
 
     public virtual int GetMaxHP()
