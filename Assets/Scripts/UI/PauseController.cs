@@ -15,12 +15,12 @@ public class PauseController : UIScreenController
 
     private void OnEnable()
     {
-        UIManager.Instance.Register(GameScreen.Pause, this);
+        UIManager.Instance.RegisterScreen(GameScreen.Pause, this);
     }
 
     private void OnDestroy()
     {
-        UIManager.Instance.Unregister(GameScreen.Pause);
+        UIManager.Instance.UnregisterScreen(GameScreen.Pause);
     }
 
     private void OnRestartButtonClicked()

@@ -20,5 +20,8 @@ public class TriangleBossParameters : ScriptableObject
 
     [Header("Damage")]
     public int damage = 1;
+
+    [Header("Info")]
+    public string bossName = "Triangle Tyrant";
 }
 

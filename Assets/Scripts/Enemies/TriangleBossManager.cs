@@ -146,4 +146,9 @@ public class TriangleBossManager : MonoBehaviour
             return Vector3.right;
         }
     }
+
+    public string GetBossName()
+    {
+        return bossParams.bossName;
+    }
 }

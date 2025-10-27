@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         EventBus<None>.Publish(GameEvent.LevelStarted);
+        UIManager.Instance.ShowTitle(TriangleBossManager.Instance.GetBossName());
     }
 
     public void WinLevel()

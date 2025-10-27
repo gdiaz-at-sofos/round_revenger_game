@@ -15,12 +15,12 @@ public class VictoryController : UIScreenController
 
     private void OnEnable()
     {
-        UIManager.Instance.Register(GameScreen.Victory, this);
+        UIManager.Instance.RegisterScreen(GameScreen.Victory, this);
     }
 
     private void OnDestroy()
     {
-        UIManager.Instance.Unregister(GameScreen.Victory);
+        UIManager.Instance.UnregisterScreen(GameScreen.Victory);
     }
 
     private void OnRestartButtonClicked()

@@ -15,12 +15,12 @@ public class DefeatController : UIScreenController
 
     private void OnEnable()
     {
-        UIManager.Instance.Register(GameScreen.Defeat, this);
+        UIManager.Instance.RegisterScreen(GameScreen.Defeat, this);
     }
 
     private void OnDestroy()
     {
-        UIManager.Instance.Unregister(GameScreen.Defeat);
+        UIManager.Instance.UnregisterScreen(GameScreen.Defeat);
     }
 
     private void OnRestartButtonClicked()
