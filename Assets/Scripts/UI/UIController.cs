@@ -1,6 +1,6 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class UIController : MonoBehaviour
 {
@@ -12,11 +12,13 @@ public class UIController : MonoBehaviour
 
     private int _currentHP = 0;
     private int _maxHP = 0;
+    private List<HPElement> _hpElements = new List<HPElement>();
 
     private void Start()
     {
         _currentHP = PlayerManager.Instance.GetPlayerCurrentHP();
         _maxHP = PlayerManager.Instance.GetPlayerMaxHP();
+        ClearHPBar();
         DrawHPBar();
     }
 
@@ -30,11 +32,19 @@ public class UIController : MonoBehaviour
         EventBus<PlayerHPChangedEvent>.Unsubscribe(GameEvent.PlayerHPChanged, OnPlayerHPChanged);
     }
 
+    private void ClearHPBar()
+    {
+        for (int i = 0; i < HPBar.transform.childCount; i++)
+        {
+            Destroy(HPBar.transform.GetChild(i).gameObject);
+        }
+    }
+
     private void DrawHPBar()
     {
         for (int i = 0; i < _maxHP; i++)
         {
-            Instantiate(HPPrefab, HPBar.transform);
+            _hpElements.Add(Instantiate(HPPrefab, HPBar.transform));
         }
     }
 
@@ -43,16 +53,9 @@ public class UIController : MonoBehaviour
         _currentHP = eventData.CurrentHP;
         _maxHP = eventData.MaxHP;
 
-        for (int i = 0; i < _maxHP; i++)
+        for (int i = 0; i < _hpElements.Count; i++)
         {
-            if (i < _currentHP)
-            {
-                HPBar.transform.GetChild(i).GetComponent<Image>().sprite = HPFull;
-            }
-            else
-            {
-                HPBar.transform.GetChild(i).GetComponent<Image>().sprite = HPEmpty;
-            }
+            _hpElements[i].GetComponent<Image>().sprite = (i < _currentHP) ? HPFull : HPEmpty;
         }
     }
 }
