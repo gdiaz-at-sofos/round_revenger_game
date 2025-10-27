@@ -8,10 +8,14 @@ public class PlayerHPController : HealthController
 
     private float _invincibilityTimer = 0.0f;
 
-    void Start()
+    private void Awake()
     {
         entityHP = playerParams.entityHP;
         maxHP = playerParams.maxHP;
+    }
+
+    private void Start()
+    {
         EventBus<PlayerHPChangedEvent>.Publish(GameEvent.PlayerHPChanged, new PlayerHPChangedEvent(entityHP, maxHP));
     }
 
@@ -39,7 +43,7 @@ public class PlayerHPController : HealthController
 
     public override void Die()
     {
-        GameManager.Instance.LoseLevel();
+        LevelManager.Instance.LoseLevel();
     }
 
     // NOTE: Maybe take the time in Update instead of a coroutine

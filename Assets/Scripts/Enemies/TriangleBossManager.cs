@@ -28,12 +28,14 @@ public class TriangleBossManager : MonoBehaviour
     {
         EventBus<None>.Subscribe(GameEvent.LevelStarted, OnLevelStarted);
         EventBus<None>.Subscribe(GameEvent.BossStarted, OnBossStarted);
+        EventBus<None>.Subscribe(GameEvent.BossDefeated, OnBossDefeated);
     }
 
     private void OnDisable()
     {
         EventBus<None>.Unsubscribe(GameEvent.LevelStarted, OnLevelStarted);
         EventBus<None>.Unsubscribe(GameEvent.BossStarted, OnBossStarted);
+        EventBus<None>.Unsubscribe(GameEvent.BossDefeated, OnBossDefeated);
     }
 
     private void OnLevelStarted()
@@ -65,6 +67,11 @@ public class TriangleBossManager : MonoBehaviour
     private void OnBossStarted()
     {
         StartCoroutine(BossAI());
+    }
+
+    private void OnBossDefeated()
+    {
+        LevelManager.Instance.WinLevel();
     }
 
     private IEnumerator BossAI()

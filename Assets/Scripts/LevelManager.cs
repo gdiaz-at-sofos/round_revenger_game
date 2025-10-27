@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
@@ -18,5 +17,17 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         EventBus<None>.Publish(GameEvent.LevelStarted);
+    }
+
+    public void WinLevel()
+    {
+        UIManager.Instance.OpenScreen(GameScreen.Victory);
+        GameManager.Instance.PauseGame();
+    }
+
+    public void LoseLevel()
+    {
+        UIManager.Instance.OpenScreen(GameScreen.Defeat);
+        GameManager.Instance.PauseGame();
     }
 }

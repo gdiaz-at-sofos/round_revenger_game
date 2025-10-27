@@ -23,5 +23,7 @@ public class EnemyHPController : HealthController
   public override void Die()
   {
     base.Die();
+    // NOTE: Should do this on a child class
+    EventBus<None>.Publish(GameEvent.BossDefeated);
   }
 }

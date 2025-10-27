@@ -1,13 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
   public static GameManager Instance { get; private set; }
-
-  /* [SerializeField] private PauseMenuController pauseMenu;
-  [SerializeField] private VictoryMenuController victoryMenu;
-  [SerializeField] private DefeatMenuController defeatMenu; */
 
   private bool isPaused = false;
 
@@ -22,16 +19,42 @@ public class GameManager : MonoBehaviour
     DontDestroyOnLoad(gameObject);
   }
 
+  /**
+  * Scene Management
+  */
+
+  public void RestartLevel()
+  {
+    ResumeGame();
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+  }
+
+  public void LoadMainMenu()
+  {
+    ResumeGame();
+    SceneManager.LoadScene(GameScene.MainMenu.ToString());
+  }
+
+  public void ExitGame()
+  {
+    Application.Quit();
+  }
+
+  /**
+  * Pause
+  */
 
   void OnPause()
   {
     if (isPaused)
     {
-      // pauseMenu.OpenPauseMenu();
+      UIManager.Instance.OpenScreen(GameScreen.Pause);
+      PauseGame();
     }
     else
     {
-      // pauseMenu.ClosePauseMenu();
+      UIManager.Instance.CloseScreen();
+      ResumeGame();
     }
   }
 
@@ -49,16 +72,9 @@ public class GameManager : MonoBehaviour
     EnablePlayerInputs();
   }
 
-  public void RestartGame()
-  {
-    ResumeGame();
-    UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-  }
-
-  public void ExitGame()
-  {
-    Application.Quit();
-  }
+  /**
+  * Input Management
+  */
 
   void DisablePlayerInputs()
   {
@@ -82,15 +98,5 @@ public class GameManager : MonoBehaviour
       }
       playerInput.ActivateInput();
     }
-  }
-
-  public void WinLevel()
-  {
-    // victoryMenu.OpenVictoryMenu();
-  }
-
-  public void LoseLevel()
-  {
-    // defeatMenu.OpenDefeatMenu();
   }
 }

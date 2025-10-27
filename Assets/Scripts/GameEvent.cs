@@ -7,6 +7,7 @@ public enum GameEvent
     PlayerDamaged,
     PlayerInvincibilityStarted,
     PlayerInvincibilityEnded,
+    BossDefeated,
 }
 
 public interface IGameEvent { }

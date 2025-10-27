@@ -16,7 +16,7 @@ MonoBehaviour:
   linearDrag: 0.75
   angularDrag: 0.05
   gravityScale: 1.6
-  speedForce: 80
+  movementSpeedForce: 80
   maxSpeed: 35
   dampingFactor: 0.2
   jumpForce: 800
@@ -26,3 +26,9 @@ MonoBehaviour:
   groundCheckAngle: 0
   groundCheckDistance: 0.1
   blinkOutDuration: 0.1
+  gunDamage: 1
+  gunSpeedForce: 20
+  gunShootCooldown: 0.55
+  entityHP: 5
+  maxHP: 5
+  invincibilityDuration: 1
