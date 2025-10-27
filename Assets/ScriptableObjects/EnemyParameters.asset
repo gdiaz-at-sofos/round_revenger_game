@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a12590fa225dd84293076c037f9fe06, type: 3}
   m_Name: EnemyParameters
   m_EditorClassIdentifier: 
-  entityHP: 100
-  maxHP: 100
+  entityHP: 20
+  maxHP: 20

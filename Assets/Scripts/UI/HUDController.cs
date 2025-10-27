@@ -4,11 +4,14 @@ using System.Collections.Generic;
 
 public class HUDController : MonoBehaviour
 {
-    [Header("References")]
+    [Header("HP References")]
     [SerializeField] private GameObject HPBar;
     [SerializeField] private HPElement HPPrefab;
     [SerializeField] private Sprite HPFull;
     [SerializeField] private Sprite HPEmpty;
+
+    [Header("BossHP References")]
+    [SerializeField] private Image BossHPBarFill;
 
     private List<HPElement> _hpElements = new List<HPElement>();
 
@@ -26,11 +29,13 @@ public class HUDController : MonoBehaviour
     private void OnEnable()
     {
         EventBus<PlayerHPChangedEvent>.Subscribe(GameEvent.PlayerHPChanged, OnPlayerHPChanged);
+        EventBus<BossHPChangedEvent>.Subscribe(GameEvent.BossHPChanged, OnBossHPChanged);
     }
 
     private void OnDisable()
     {
         EventBus<PlayerHPChangedEvent>.Unsubscribe(GameEvent.PlayerHPChanged, OnPlayerHPChanged);
+        EventBus<BossHPChangedEvent>.Unsubscribe(GameEvent.BossHPChanged, OnBossHPChanged);
     }
 
     private void OnPlayerHPChanged(PlayerHPChangedEvent eventData)
@@ -50,5 +55,10 @@ public class HUDController : MonoBehaviour
         {
             _hpElements[i].GetComponent<Image>().sprite = (i < currentHP) ? HPFull : HPEmpty;
         }
+    }
+
+    private void OnBossHPChanged(BossHPChangedEvent eventData)
+    {
+        BossHPBarFill.fillAmount = (float)eventData.CurrentHP / eventData.MaxHP;
     }
 }
