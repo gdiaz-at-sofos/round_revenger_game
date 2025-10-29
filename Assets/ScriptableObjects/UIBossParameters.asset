@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60f41f57bc13d2f469ba9f4c2d7e31ec, type: 3}
-  m_Name: UIParameters
+  m_Name: UIBossParameters
   m_EditorClassIdentifier: 
-  titleInScreenTime: 2.5
-  titleVisibleTime: 1
+  titleFadeTime: 1
+  titleVisibleTime: 1.5

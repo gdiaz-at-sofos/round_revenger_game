@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,6 +34,14 @@ public class GameManager : MonoBehaviour
   {
     ResumeGame();
     SceneManager.LoadScene(GameScene.MainMenu.ToString());
+  }
+
+  public void LoadNextLevel()
+  {
+    ResumeGame();
+    GameScene currentScene = (GameScene)Enum.Parse(typeof(GameScene), SceneManager.GetActiveScene().name);
+    GameScene nextScene = currentScene + 1;
+    SceneManager.LoadScene(nextScene.ToString());
   }
 
   public void ExitGame()

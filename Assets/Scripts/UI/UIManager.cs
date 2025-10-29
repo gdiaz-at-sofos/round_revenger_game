@@ -75,11 +75,11 @@ public class UIManager : MonoBehaviour
      * Title Management
      */
 
-    public void ShowTitle(string titleText)
+    public IEnumerator ShowTitle(string titleText)
     {
         TitleController title = Instantiate(titlePrefab, mainCanvas.transform);
         title.SetTitle(titleText);
-        StartCoroutine(FadeTitle(title));
+        yield return StartCoroutine(FadeTitle(title));
     }
 
     private IEnumerator FadeTitle(TitleController title)

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+public abstract class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
 
@@ -14,21 +14,8 @@ public class LevelManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         EventBus<None>.Publish(GameEvent.LevelStarted);
-        UIManager.Instance.ShowTitle(TriangleBossManager.Instance.GetBossName());
-    }
-
-    public void WinLevel()
-    {
-        UIManager.Instance.OpenScreen(GameScreen.Victory);
-        GameManager.Instance.PauseGame();
-    }
-
-    public void LoseLevel()
-    {
-        UIManager.Instance.OpenScreen(GameScreen.Defeat);
-        GameManager.Instance.PauseGame();
     }
 }

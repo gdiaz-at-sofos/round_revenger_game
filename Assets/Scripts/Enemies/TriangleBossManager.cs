@@ -71,7 +71,10 @@ public class TriangleBossManager : MonoBehaviour
 
     private void OnBossDefeated()
     {
-        LevelManager.Instance.WinLevel();
+        if (LevelManager.Instance is IWinLoseable winLoseableLevel)
+        {
+            winLoseableLevel.WinLevel();
+        }
     }
 
     private IEnumerator BossAI()

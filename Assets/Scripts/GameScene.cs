@@ -1,6 +1,7 @@
 public enum GameScene
 {
     MainMenu,
-    Tutorial,
+    StoryStart,
     TriangleBoss,
+    StoryEnd
 }

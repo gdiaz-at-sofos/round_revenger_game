@@ -43,7 +43,10 @@ public class PlayerHPController : HealthController
 
     public override void Die()
     {
-        LevelManager.Instance.LoseLevel();
+        if (LevelManager.Instance is IWinLoseable winLoseableLevel)
+        {
+            winLoseableLevel.LoseLevel();
+        }
     }
 
     // NOTE: Maybe take the time in Update instead of a coroutine
