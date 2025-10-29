@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class TriangleLevelManager : LevelManager, IWinLoseable
 {
+    private const string TRIANGLE_LEVEL_KEY = "TRIANGLE_LEVEL_PASSED";
+
     protected override void Start()
     {
         base.Start();
@@ -12,6 +14,8 @@ public class TriangleLevelManager : LevelManager, IWinLoseable
     {
         UIManager.Instance.OpenScreen(GameScreen.Victory);
         GameManager.Instance.PauseGame();
+        PlayerPrefs.SetInt(TRIANGLE_LEVEL_KEY, 1);
+        PlayerPrefs.Save();
     }
 
     public void LoseLevel()
