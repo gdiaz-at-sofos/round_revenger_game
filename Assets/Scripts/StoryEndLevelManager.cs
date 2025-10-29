@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class StoryLevelManager : LevelManager
+public class StoryEndLevelManager : LevelManager
 {
     [Header("Parameters")]
     [SerializeField] private StoryParameters storyParams;
@@ -14,8 +14,8 @@ public class StoryLevelManager : LevelManager
 
     private IEnumerator StorySequence()
     {
-        yield return StartCoroutine(UIManager.Instance.ShowTitle(storyParams.storyStartTextA));
-        yield return StartCoroutine(UIManager.Instance.ShowTitle(storyParams.storyStartTextB));
-        GameManager.Instance.LoadNextLevel();
+        yield return StartCoroutine(UIManager.Instance.ShowTitle(storyParams.storyEndTextA));
+        yield return StartCoroutine(UIManager.Instance.ShowTitle(storyParams.storyEndTextB));
+        GameManager.Instance.LoadMainMenu();
     }
 }

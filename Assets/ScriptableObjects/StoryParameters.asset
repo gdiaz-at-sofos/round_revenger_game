@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8994aab280cd1c4c9bbd478dbc7972c, type: 3}
   m_Name: StoryParameters
   m_EditorClassIdentifier: 
-  storyStartText: YOU ARE ROUND THEY ARE EDGED
-  storyEndText: ALL HAS BEEN ROUNDED
+  storyStartTextA: YOU ARE ROUND THEY ARE EDGED
+  storyStartTextB: SHAPE THEM UP OR SHUT THEM DOWN
+  storyEndTextA: AND THE REVENGER WEPT
+  storyEndTextB: FOR THERE WERE NO MORE SHAPES TO ROUND
