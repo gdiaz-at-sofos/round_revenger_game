@@ -6,6 +6,8 @@ public class GunController : MonoBehaviour
     [SerializeField] private Transform muzzle;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private PlayerParameters playerParams;
+    [SerializeField] private AudioSource gunShotSFXSource;
+
 
     private float _lastShootTime = -0.55f;
     private Vector3 _mousePosition;
@@ -32,6 +34,7 @@ public class GunController : MonoBehaviour
         Vector2 direction = (_mousePosition - muzzle.position).normalized;
         Bullet bullet = BulletManager.Instance.Get();
         bullet.Fire(muzzle.position, direction, playerParams.gunSpeedForce, playerParams.gunDamage);
+        gunShotSFXSource.Play();
 
         _lastShootTime = Time.time;
     }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f41f57bc13d2f469ba9f4c2d7e31ec, type: 3}
   m_Name: UIStoryParameters
   m_EditorClassIdentifier: 
-  titleFadeTime: 1.5
-  titleVisibleTime: 5
+  titleFadeTime: 0.8
+  titleVisibleTime: 2.4

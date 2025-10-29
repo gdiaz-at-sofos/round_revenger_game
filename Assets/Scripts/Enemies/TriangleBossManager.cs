@@ -11,6 +11,8 @@ public class TriangleBossManager : MonoBehaviour
     [SerializeField] private TriangleController triangle;
     [SerializeField] private Transform startingPosition;
     [SerializeField] private Transform centerPosition;
+    [SerializeField] private AudioSource groundCrashSFXSource;
+    [SerializeField] private AudioSource swingAcrossSFXSource;
 
     private bool _isBossDefeated = false;
 
@@ -54,6 +56,7 @@ public class TriangleBossManager : MonoBehaviour
         // Charge
         triangle.ChargeTime = bossParams.initialChargeTime;
         yield return StartCoroutine(triangle.Charge(Vector3.down, Ease.InSine));
+        groundCrashSFXSource.Play();
 
         // Move to center
         yield return StartCoroutine(GoToCenterPositionSequence());
@@ -120,6 +123,7 @@ public class TriangleBossManager : MonoBehaviour
             yield return StartCoroutine(triangle.RotateTowards(direction, Ease.InOutSine));
 
             // Charge
+            swingAcrossSFXSource.Play();
             yield return StartCoroutine(triangle.Charge(direction, Ease.InOutSine));
 
             // Wait for a bit
